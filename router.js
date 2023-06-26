@@ -11,7 +11,7 @@ router.post("/events/post", events.addEvent);
 // Remove books from the list
 router.delete("/events/deleteall", events.deleteAllEvents);
 
-// Edit book listings
+// Edit book listing by ID
 router.put("/events/edit/:id", events.updateEvent);
 
 // Return books by ID
