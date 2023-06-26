@@ -8,16 +8,16 @@ router.get("/events", events.getEvents);
 // Add an event (Title, date, description, an ID)
 router.post("/events/post", events.addEvent);
 
-// Remove books from the list
+// Remove event from the list
 router.delete("/events/deleteall", events.deleteAllEvents);
 
-// Edit book listing by ID
+// Edit event by ID
 router.put("/events/edit/:id", events.updateEvent);
 
-// Return books by ID
+// Get event by ID
 router.get("/events/:id", events.getEvent);
 
-// Delete books by ID
+// Delete events by ID
 router.delete("/events/delete/:id", events.deleteEvent);
 
 module.exports = router;
