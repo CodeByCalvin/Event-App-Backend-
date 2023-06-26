@@ -1,4 +1,3 @@
-/// importing the dependencies
 require("dotenv").config();
 const express = require("express"); // for building the REST APIs
 const bodyParser = require("body-parser"); // for parsing incoming request bodies
