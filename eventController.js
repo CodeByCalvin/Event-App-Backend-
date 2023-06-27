@@ -117,3 +117,59 @@ exports.deleteAllEvents = async (req, res, next) => {
     return next(createError(400, "Error deleting the events", error));
   }
 };
+
+// Register function (authentication)
+exports.register = async (req, res, next) => {
+  if (!req.body.username || !req.body.password) {
+    return next(
+      createError(400, "Please ensure that you have filled in all the fields.")
+    );
+  }
+
+  // check if a user with the given username already exists
+  const existingUser = await User.findOne({ username: req.body.username });
+  if (existingUser) {
+    return next(createError(400, "A user with this username already exists."));
+  }
+
+  // create new user
+  const user = new User({
+    username: req.body.username,
+    password: req.body.password,
+    token: uuidv4(),
+  });
+  await user.save();
+
+  // send token to the client
+  res.send({ token: user.token });
+};
+
+// Login function (authentication)
+exports.login = async (req, res, next) => {
+  console.log("Authenticating...");
+  console.log(req.body);
+
+  if (!req.body.username || !req.body.password) {
+    return next(
+      createError(400, "Please ensure that you have filled in all the fields.")
+    );
+  }
+
+  const user = await User.findOne({
+    username: req.body.username,
+    password: req.body.password,
+  });
+
+  if (!user) {
+    return next(
+      createError(
+        401,
+        "There was an error processing your request. Please try again."
+      )
+    );
+  } else {
+    user.token = uuidv4();
+    await user.save();
+    res.send({ token: user.token });
+  }
+};
