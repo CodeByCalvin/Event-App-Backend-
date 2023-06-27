@@ -24,6 +24,6 @@ router.delete("/events/delete/:id", events.deleteEvent);
 router.post("/register", events.register);
 
 // Login function (authentication)
-// router.post("/login", events.login);
+router.post("/login", events.login);
 
 module.exports = router;

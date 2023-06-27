@@ -55,21 +55,21 @@ db.once("open", function callback() {
 });
 
 // authentication middleware
-app.use(async (req, res, next) => {
-  const authHeader = req.headers.authorization;
-  const user = await User.findOne({ token: authHeader });
+// app.use(async (req, res, next) => {
+//   const authHeader = req.headers.authorization;
+//   const user = await User.findOne({ token: authHeader });
 
-  if (!authHeader) {
-    return next(
-      createError(401, "You are not authorized to access this page.")
-    );
-  }
+//   if (!authHeader) {
+//     return next(
+//       createError(401, "You are not authorized to access this page.")
+//     );
+//   }
 
-  if (!user) {
-    return next(
-      createError(401, "There was an error processing your request.")
-    );
-  } else {
-    next();
-  }
-});
+//   if (!user) {
+//     return next(
+//       createError(401, "There was an error processing your request.")
+//     );
+//   } else {
+//     next();
+//   }
+// });
