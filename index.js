@@ -19,7 +19,7 @@ mongoose.connect(dburi, { useNewUrlParser: true, useUnifiedTopology: true });
 // defining the Express app
 const app = express();
 
-// Enabling CORS for all requests
+// enabling CORS for all requests
 app.use(cors());
 
 // Header

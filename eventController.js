@@ -1,9 +1,8 @@
 const createError = require("http-errors");
-const { Event } = require("./models/event");
-const { User } = require("./models/user");
+const Event = require("./models/event");
 const { ObjectId } = require("mongodb");
-const { v4: uuidv4 } = require("uuid");
 
+// Post new event (name, date, description, ID)
 // Post new event (name, date, description, ID)
 exports.addEvent = async (req, res, next) => {
   if (!req.body.name || !req.body.date || !req.body.description) {
