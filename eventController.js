@@ -1,6 +1,8 @@
 const createError = require("http-errors");
-const Event = require("./models/event");
+const { Event } = require("./models/event");
+const { User } = require("./models/user");
 const { ObjectId } = require("mongodb");
+const { v4: uuidv4 } = require("uuid");
 
 // Post new event (name, date, description, ID)
 // Post new event (name, date, description, ID)
@@ -120,6 +122,7 @@ exports.deleteAllEvents = async (req, res, next) => {
 
 // Register function (authentication)
 exports.register = async (req, res, next) => {
+  // check for username and password in request body
   if (!req.body.username || !req.body.password) {
     return next(
       createError(400, "Please ensure that you have filled in all the fields.")
@@ -168,6 +171,7 @@ exports.login = async (req, res, next) => {
       )
     );
   } else {
+    // Generate a new token and save it to the database
     user.token = uuidv4();
     await user.save();
     res.send({ token: user.token });
