@@ -53,23 +53,3 @@ db.on("error", console.error.bind(console, "connection error:"));
 db.once("open", function callback() {
   console.log("Database connected!");
 });
-
-// authentication middleware
-// app.use(async (req, res, next) => {
-//   const authHeader = req.headers.authorization;
-//   const user = await User.findOne({ token: authHeader });
-
-//   if (!authHeader) {
-//     return next(
-//       createError(401, "You are not authorized to access this page.")
-//     );
-//   }
-
-//   if (!user) {
-//     return next(
-//       createError(401, "There was an error processing your request.")
-//     );
-//   } else {
-//     next();
-//   }
-// });
