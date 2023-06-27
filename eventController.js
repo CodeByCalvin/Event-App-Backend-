@@ -5,7 +5,6 @@ const { ObjectId } = require("mongodb");
 const { v4: uuidv4 } = require("uuid");
 
 // Post new event (name, date, description, ID)
-// Post new event (name, date, description, ID)
 exports.addEvent = async (req, res, next) => {
   if (!req.body.name || !req.body.date || !req.body.description) {
     return next(createError(400, "A name, date and description is required"));
@@ -171,7 +170,6 @@ exports.login = async (req, res, next) => {
       )
     );
   } else {
-    // Generate a new token and save it to the database
     user.token = uuidv4();
     await user.save();
     res.send({ token: user.token });
