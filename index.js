@@ -19,6 +19,17 @@ mongoose.connect(dburi, { useNewUrlParser: true, useUnifiedTopology: true });
 // defining the Express app
 const app = express();
 
+// enabling CORS for all requests
+app.use(cors());
+
+// Header
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  next();
+});
+
 // using bodyParser to parse JSON bodies into JS objects
 app.use(bodyParser.json());
 
@@ -27,9 +38,6 @@ app.use("/", router);
 
 // adding Helmet to enhance your API's security
 app.use(helmet());
-
-// enabling CORS for all requests
-app.use(cors());
 
 // adding morgan to log HTTP requests
 app.use(morgan("combined"));

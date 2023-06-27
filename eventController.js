@@ -3,19 +3,29 @@ const Event = require("./models/event");
 const { ObjectId } = require("mongodb");
 
 // Post new event (name, date, description, ID)
+// Post new event (name, date, description, ID)
 exports.addEvent = async (req, res, next) => {
   if (!req.body.name || !req.body.date || !req.body.description) {
     return next(createError(400, "A name, date and description is required"));
   }
+
+  // Check if the provided date is valid
+  const date = new Date(req.body.date);
+  if (isNaN(date.getTime())) {
+    return next(createError(400, "Invalid date format"));
+  }
+
   try {
     const event = new Event({
       name: req.body.name,
-      date: req.body.date,
+      date: date,
       description: req.body.description,
     });
     await event.save();
     res.send({
-      message: `${req.body.name} on ${req.body.date} has been added to the event list.`,
+      message: `${req.body.name} on ${
+        date.toISOString().split("T")[0]
+      } has been added to the event list.`,
     });
   } catch (error) {
     return next(createError(500, error.message));
