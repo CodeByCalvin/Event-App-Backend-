@@ -20,10 +20,10 @@ router.get("/events/:id", events.getEvent);
 // Delete events by ID
 router.delete("/events/delete/:id", events.deleteEvent);
 
-// Login function (authentication)
-router.post("/login", events.login);
-
 // Register function (authentication)
 router.post("/register", events.register);
+
+// Login function (authentication)
+// router.post("/login", events.login);
 
 module.exports = router;
