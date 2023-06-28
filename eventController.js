@@ -2,6 +2,7 @@ const createError = require("http-errors");
 const { ObjectId } = require("mongodb");
 const Event = require("./models/event");
 const userModel = require("./models/user");
+const { v4: uuidv4 } = require("uuid");
 
 // Post new event (name, date, description, ID)
 // Post new event (name, date, description, ID)
