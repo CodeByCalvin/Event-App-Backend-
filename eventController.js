@@ -161,6 +161,7 @@ exports.login = async (req, res, next) => {
   if (!user) {
     return next(createError(401, "This is not a user."));
   } else if (user) {
-    res.send({ token: user.token }, console.log("User logged in"));
+    console.log("User logged in");
+    res.send({ token: user.token });
   }
 };

@@ -42,6 +42,19 @@ app.use(helmet());
 // adding morgan to log HTTP requests
 app.use(morgan("combined"));
 
+// Error handling (Check if error with http-errors or else return 500)
+app.use(function (err, req, res, next) {
+  console.error(err.message);
+  console.error(err.stack);
+
+  // Check if the error is an instance of createError
+  if (err instanceof createError.HttpError) {
+    res.status(err.statusCode).send(err.message);
+  } else {
+    res.status(500).send("An unexpected error occurred");
+  }
+});
+
 // Starting the server
 app.listen(port, () => {
   console.log(`listening on port ${port}`);
