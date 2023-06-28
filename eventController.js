@@ -159,10 +159,9 @@ exports.login = async (req, res, next) => {
 
   if (!user) {
     return next(createError(401, "This is not a user."));
+  } else if (user) {
+    user.token = uuidv4();
+    await user.save();
+    res.send({ token: user.token }, console.log("User logged in"));
   }
-
-  user.token = uuidv4();
-  await user.save();
-
-  res.send({ token: user.token });
 };
