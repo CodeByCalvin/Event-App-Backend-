@@ -1,6 +1,7 @@
 const createError = require("http-errors");
 const Event = require("./models/event");
 const { ObjectId } = require("mongodb");
+const User = require("./models/user");
 
 // Post new event (name, date, description, ID)
 // Post new event (name, date, description, ID)
@@ -128,7 +129,7 @@ exports.register = async (req, res, next) => {
   }
 
   // check if a user with the given username already exists
-  const existingUser = await User.findOne({ username: req.body.username });
+  const existingUser = await user.findOne({ username: req.body.username });
   if (existingUser) {
     return next(createError(400, "A user with this username already exists."));
   }
@@ -142,5 +143,26 @@ exports.register = async (req, res, next) => {
   await user.save();
 
   // send token to the client
+  res.send({ token: user.token });
+};
+
+// User
+// "username": "Test"
+// "password": "1"
+
+// Login in user
+exports.login = async (req, res, next) => {
+  const user = await User.findOne({
+    username: req.body.username,
+    password: req.body.password,
+  });
+
+  if (!user) {
+    return next(createError(401, "This is not a user."));
+  }
+
+  user.token = uuidv4();
+  await user.save();
+
   res.send({ token: user.token });
 };
