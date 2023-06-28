@@ -1,6 +1,6 @@
 const createError = require("http-errors");
-const Event = require("./models/event");
 const { ObjectId } = require("mongodb");
+const Event = require("./models/event");
 const userModel = require("./models/user");
 
 // Post new event (name, date, description, ID)
