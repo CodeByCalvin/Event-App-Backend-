@@ -7,8 +7,8 @@ const { v4: uuidv4 } = require("uuid");
 // Post new event (name, date, description, ID)
 // Post new event (name, date, description, ID)
 exports.addEvent = async (req, res, next) => {
-  if (!req.body.name || !req.body.date || !req.body.description) {
-    return next(createError(400, "A name, date and description is required"));
+  if (!req.body.name || !req.body.date) {
+    return next(createError(400, "A name and a date are required"));
   }
 
   // Check if the provided date is valid
